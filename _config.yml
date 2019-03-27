@@ -4,7 +4,7 @@ author: Michael Nieto
 description: > 
   My path to cyber security and the OSCP certification. 
 baseurl: "/" # the subpath of your site, e.g. /blog
-url: "https://michaelnieto.com/" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://michaelnieto.com" # the base hostname & protocol for your site, e.g. http://example.com
 
 # SEO PLUGIN
 social:
