@@ -1,8 +1,8 @@
 ---
 layout: post
 title: How to setup Metasploitable 3
-featured-img: metasploitable3header
-categories: Guides, Metasploitable 3, Hacking Lab
+featured-img: vmsrunning
+categories: Guides Metasploitable3 Hacking Lab
 mathjax: true
 ---
 
