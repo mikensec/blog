@@ -1,7 +1,7 @@
 ---
 layout: post
 title: How to setup Metasploitable 3
-featured-img: vmsrunning
+featured-img: psscreenVagrant
 categories: Guides Metasploitable3 Hacking Lab
 mathjax: true
 ---
