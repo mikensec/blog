@@ -34,6 +34,7 @@ Click on the Hardware tab and check if you have a CDROM drive. Otherwise click o
 Click Finish
 
 If you get an error message such as `cannot connect teh virtual  device... ` click yes and continue with the following step.
+
 ![](../assets/vmware/errorcd.JPG)
 
 Start your vm and log in. Then on top menu of VMware Workstation select 'VM' -> 'Install VMware Tools'. 
