@@ -43,7 +43,7 @@ Follow the prompts and restart the computer .
 
 Watch this video for more information: 
 
-![youtube video](../assets/vmware/yout.JPG)(https://www.youtube.com/watch?v=-cQGE7HwRxE)
+<a href="https://www.youtube.com/watch?v=-cQGE7HwRxE" target="_blank">https://www.youtube.com/watch?v=-cQGE7HwRxE</a>
 
 
 

