@@ -1,8 +1,8 @@
 # SITE CONFIGURATION
-title: Path to OSCP 
+title: Welcome! 
 author: Michael Nieto
 description: > 
-  My path to cyber security and the OSCP certification. 
+  Michael Nieto's IT/cybersecurity/hacking blog. 
 baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://michaelnieto.com" # the base hostname & protocol for your site, e.g. http://example.com
 
@@ -21,7 +21,7 @@ navigation: # Navigation links
   - {name: 'Contact', link: '/contact'}
 
 tagline: >
-  Sharing my path to OSCP and other IT related stuff.
+  This blog is for keeping track of cybersecurity/IT related stuff.
 
 hero_img: posts/modern_lg.jpg # Main background image: use the path from /assets/img/ => This will output /assets/img/posts/sleek_lg.jpg
 
