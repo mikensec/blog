@@ -1,0 +1,42 @@
+I"�<p>These are common issues I have encountered when importing virtual machines from online courses, vulnhub, VirtualBox, etc.</p>
+
+<h2 id="no-network-connection-available-after-importing-vm">No network connection available after importing vm…</h2>
+
+<p>You received a shiny new vulnerable vm and want to try it out but when you spin it up, it can’t connect to the network.</p>
+
+<p><img src="../assets/vmware/nonetworkadapters.JPG" alt="" /></p>
+
+<h2 id="install-vmware-tools"><u>Install VMware Tools</u></h2>
+
+<p>But sometimes the VMware tools option is grayed out. Here’s what to do:</p>
+
+<ol>
+  <li>Turn off the virtual machine.</li>
+  <li>Right click on your virtual machine and select settings.</li>
+  <li>Click on the options tab.</li>
+  <li>Select General and switch it from <code class="highlighter-rouge">Other</code> to <code class="highlighter-rouge">Microsoft Windows</code>, and select your OS version.</li>
+  <li>Click ok and turn your vm back on.</li>
+</ol>
+
+<p><img src="../assets/vmware/Otheroption.JPG" alt="" /></p>
+
+<p>You might need to add a CD-ROM drive:</p>
+
+<p>On VMware Workstation, right click on the virtual machine and click settings. 
+Click on the Hardware tab and check if you have a CDROM drive. Otherwise click on <code class="highlighter-rouge">add</code> and select CD/DVD.
+<img src="../assets/vmware/CDDVD.JPG" alt="" />
+Click Finish</p>
+
+<p>If you get an error message such as <code class="highlighter-rouge">cannot connect teh virtual  device... </code> click yes and continue with the following step.</p>
+
+<p><img src="../assets/vmware/errorcd.JPG" alt="" /></p>
+
+<p>Start your vm and log in. Then on top menu of VMware Workstation select ‘VM’ -&gt; ‘Install VMware Tools’.</p>
+
+<p>Follow the prompts and restart the computer .</p>
+
+<p>Watch this video for more information:</p>
+
+<p><a href="https://www.youtube.com/watch?v=-cQGE7HwRxE" target="_blank">https://www.youtube.com/watch?v=-cQGE7HwRxE</a></p>
+
+:ET
