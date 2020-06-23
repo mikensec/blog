@@ -22,7 +22,9 @@ Send SMS messages from a command line. Useful for scripts and notifications to t
 **For the first trial you will receive $15.50 to use for testing as of 6/19/2020.**
 
 You can see this on your Twilio dashboard:
-![img_0.png](.media/img_0.png)
+
+![Dashboard](../assets/twilio/Dashboard.PNG)
+
 **Important:** You need to click on "Get a Trial Number" and use that as your "from" # in your scripts
 
 Now that you have an account and some credit let's build a quick script that sends a text.
