@@ -2,7 +2,7 @@
 layout: post
 title: How to setup the Vagrant VMware provider with a paid license to work on VMware Workstaion Pro 15.5 on CentOS 8.
 featured-img: vagrantmvware
-categories: Guides Metasploitable3 Vagrant VMware provider CentOS 8  
+categories: Guides Metasploitable3 Vagrant VMware provider CentOS8  
 mathjax: true
 ---
 
