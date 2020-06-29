@@ -6,9 +6,15 @@ categories: Guides Metasploitable3 Hacking Lab
 mathjax: true
 ---
 
+:warning: **UPDATE:** *6/25/2020 - If you have bought a license for the VMWare provider for Vagrant - Go to my new post: <a href="https://michaelnieto.com/vmware-vagrant-provider/"
+target="_blank">https://michaelnieto.com/vmware-vagrant-provider/</a>. 
+The VMWare provider from Vagrant allows building Metasploitable 3 directly into VMWare Workstation Pro.*
+
+:arrow_right: **Continue reading if you want to use VirtualBox for free.** 
+
 Metasploitable3 is a virtual machine that is built from the ground up with a large amount of security vulnerabilities. For detailed information, [click here to view its repository.](https://github.com/rapid7/metasploitable3)
 
-Configuring the virtual machine is a little tricky so I've documented the fastest way I was able to get it running on VMware Workstation. 
+Configuring the virtual machine is a little tricky so I've documented the fastest way I was able to get it running on VirtualBox and VMware Workstation for free. 
 
 # Prereqs 
 
