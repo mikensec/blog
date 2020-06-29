@@ -1,0 +1,162 @@
+I""<p>How to setup the Vagrant VMware provider with a paid license to work on VMware Workstation Pro 15.5 running on CentOS 8.</p>
+
+<p>Thanks to <strong>Aaron McKay</strong> for encouraging me to write this post and providing the Vagrant VMware provider license.</p>
+
+<p><strong>On this post I will show you how to:</strong></p>
+
+<ol>
+  <li>Install VMware Workstation Pro.</li>
+  <li>Install Vagrant.</li>
+  <li>Install the Vagrant VMware Utility.</li>
+  <li>Install the Vagrant VMware Plugin.</li>
+  <li>Install the Vagrant VMware Provider License.</li>
+  <li>Provision a machine (Metasploitable 3 Win 2k8 and Linux versions).</li>
+</ol>
+
+<p>First let’s begin with how to install VMware Workstation Pro 15.5 on CentOS 8 / RHEL. Skip ahead if you already have it installed.</p>
+
+<p><strong>Install VMware Workstation Pro.</strong></p>
+
+<ol>
+  <li>
+    <p>Download the installer: <a href="https://www.vmware.com/products/workstation-pro/workstation-pro-evaluation.html" target="_blank">https://www.vmware.com/products/workstation-pro/workstation-pro-evaluation.html</a></p>
+  </li>
+  <li>Locate the .bundle file and run the following commands:</li>
+  <li>Make it executable with <code class="highlighter-rouge">chmod +x VMware-Workstation...</code> The full command depends on your version.</li>
+  <li>Run the installer with <code class="highlighter-rouge">sudo ./VMware.Workstation...</code></li>
+  <li>You’ll receive a message saying the installation was successful.</li>
+</ol>
+
+<p><img src="../assets/vagrant/vmprocnetosinstall.PNG" alt="vmware install" /></p>
+
+<ol>
+  <li>Open VMware workstation from the application menu or type <code class="highlighter-rouge">vmware</code> in your terminal.</li>
+</ol>
+
+<p><strong>Common Issue:</strong> <code class="highlighter-rouge">Before you can run VMware, several modules must be compiled and loaded into the running kernel.</code> fails when you click Install.</p>
+
+<p><img src="../assets/vagrant/vmprocentoskernel.PNG" alt="VMware Kernel Module Updater" /></p>
+
+<ol>
+  <li>If the modules fail to install, try running this command: <br />
+<code class="highlighter-rouge">sudo dnf install elfutils-libelf-devel</code> more information can be found here: <a href="https://kb.vmware.com/s/article/58533">https://kb.vmware.com/s/article/58533</a></li>
+  <li>Then launch VMware Workstation Pro 15.5 again and click install on the VMware Kernel Module Updater. This time it should complete.</li>
+  <li>Once the program opens completely, install your license and try building an empty virtual machine to make sure everything works.</li>
+</ol>
+
+<p><strong>Install Vagrant.</strong></p>
+
+<ol>
+  <li>Download the Vagrant CentOS package from <a href="https://www.vagrantup.com/downloads" target="_blank">https://www.vagrantup.com/downloads</a>.</li>
+  <li>Locate the .rpm file you downloaded and run the following command: <br />
+<code class="highlighter-rouge">sudo yum localinstall vagrant_2.2.9_x86_64.rpm</code> your version may be different.</li>
+  <li>Type y and hit enter if prompted.</li>
+  <li>Type <code class="highlighter-rouge">vagrant</code> and hit enter in your terminal and you should see the Vagrant’s help options.</li>
+</ol>
+
+<p><strong>Install Vagrant’s VMware Utility</strong></p>
+
+<ol>
+  <li>Download the CentOS rpm package from <code class="highlighter-rouge">https://www.vagrantup.com/vmware/downloads</code>.</li>
+  <li>Locate the .rpm file and run the following command: <br />
+<code class="highlighter-rouge">sudo yum localinstall vagrant-vmware-utility_1.0.9_x86_64.rpm</code> your version or file name might be different.</li>
+  <li>Type y and hit enter if prompted.</li>
+  <li>You should see the messages “Certificate generation complete!” and a successful installation message.</li>
+</ol>
+
+<p><img src="../assets/vagrant/vagrantvmwareuinstall.PNG" alt="vagrant install CentOS" /></p>
+
+<p><strong>Install the Vagrant VMware Plugin</strong></p>
+
+<ol>
+  <li>Make sure you installed the Vagrant VMware Utility successfully from the previous steps.</li>
+  <li>Run the following command: <br />
+<code class="highlighter-rouge">vagrant plugin install vagrant-vmware-desktop</code></li>
+  <li>You should receive a green message “Installed the plugin…”</li>
+</ol>
+
+<p><strong>Install the Vagrant VMware plugin license</strong></p>
+
+<ol>
+  <li>Download your license file. It should be named license.lic.</li>
+  <li>Go to the directory where you download the file and run the following command: 
+<code class="highlighter-rouge">vagrant plugin license vagrant-vmware-desktop licnese.lic</code></li>
+  <li>You should receive a green message that says “vagrant-vmware-desktop was successfully installed!”</li>
+</ol>
+
+<p><img src="../assets/vagrant/vagrantvlicense.PNG" alt="vagrant plugin install" /></p>
+
+<ol>
+  <li>Lastly run this command to make sure the service is installed:</li>
+</ol>
+
+<p><code class="highlighter-rouge">sudo /opt/vagrant-vmware-desktop/bin/vagrant-vmware-utility service install</code></p>
+
+<p><strong>Common Issue:</strong> This also fixes a common issue when provisioning a machine and you receive the error message “Vagrant encountered an unexpected communications error with the Vagrant VMware Utility driver…”</p>
+
+<p><img src="../assets/vagrant/vagranterror.PNG" alt="Vagrant encountered and unexpected communications error - fix" /></p>
+
+<p><strong>Provisioning a virtual machine</strong></p>
+
+<p>In this example I’m going to provision Metasploitable 3 from Vagrant using the Vagrant VMware Utility.</p>
+
+<ol>
+  <li>
+    <p>You can find the original instructions here <a href="https://github.com/rapid7/metasploitable3" target="_blank">https://github.com/rapid7/metasploitable3</a>
+The vagrant file provided is meant to work with Virtualbox. If you are using Virtualbox only go to my other post:
+<a href="https://michaelnieto.com/metasploitable-3/" target="_blank">https://michaelnieto.com/metasploitable-3/</a></p>
+  </li>
+  <li>
+    <p>Download my customized vagrant file for each machine you want:</p>
+  </li>
+</ol>
+
+<p>If you want the Metasploitable Win 2k8 machine, download the following Vagrantfile: 
+<a href="https://github.com/mikensec/mikensec.github.io/tree/master/assets/vagrant/windows/Vagrantfile" target="_blank">https://github.com/mikensec/mikensec.github.io/tree/master/assets/vagrant/windows/Vagrantfile</a></p>
+
+<p>For the Metaploitable 3 Linux image <a href="https://github.com/mikensec/mikensec.github.io/tree/master/assets/vagrant/linux/Vagrantfile" target="_blank">https://github.com/mikensec/mikensec.github.io/tree/master/assets/vagrant/linux/Vagrantfile</a></p>
+
+<ol>
+  <li>You can also run the following commands in your terminal:</li>
+</ol>
+
+<p>For the Win 2k8 Vagrantfile:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir </span>metasploitable3-windows-workspace
+<span class="nb">cd </span>metasploitable3-windows-workspace
+curl <span class="nt">-O</span> https://raw.githubusercontent.com/mikensec/mikensec.github.io/master/assets/vagrant/windows/Vagrantfile
+</code></pre></div></div>
+
+<p>For the Linux Vagrantfile:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir </span>metasploitable3-linux-workspace
+<span class="nb">cd </span>metasploitable3-linux-workspace
+curl <span class="nt">-O</span> https://raw.githubusercontent.com/mikensec/mikensec.github.io/master/assets/vagrant/linux/Vagrantfile
+</code></pre></div></div>
+<ol>
+  <li>Then go into the workspace you want to use for example:</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>metasploitable3-windows-workspace
+vagrant up <span class="nt">--provider</span><span class="o">=</span>vmware_desktop
+</code></pre></div></div>
+
+<ol>
+  <li>Once your image is provisioned, VMware Workstation will open up.</li>
+</ol>
+
+<p><img src="../assets/vagrant/success.PNG" alt="metasploitable 3 wmware workstation Pro" /></p>
+
+<p><img src="../assets/vagrant/successwindows.PNG" alt="Win 2k8 metasploitable 3 - Workstation Pro" /></p>
+
+<p>If you receive an error message about Vagrant encountered and unexpected communications error…</p>
+
+<p><img src="../assets/vagrant/vagranterror.PNG" alt="Vagrant encountered and unexpected communications error - fix" /></p>
+
+<p>Try this command:</p>
+
+<p><code class="highlighter-rouge">sudo /opt/vagrant-vmware-desktop/bin/vagrant-vmware-utility service install</code></p>
+
+<p>Other possible error messages can come up if you don’t have enough disk space or ram to run the virtual machines. You can try editing the Vagrantfile with more custom settings.</p>
+
+:ET

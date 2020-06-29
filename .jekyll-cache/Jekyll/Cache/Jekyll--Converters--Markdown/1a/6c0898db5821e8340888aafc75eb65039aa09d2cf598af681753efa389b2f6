@@ -1,0 +1,98 @@
+I"Q<h2 id="how-to-send-sms-messages-using-twilio-from-a-command-line">How to send SMS messages using Twilio from a command line.</h2>
+<p><br />
+Send SMS messages from a command line. Useful for scripts and notifications to text yourself for free. If you want to be able to send SMS to other people, you will need to upgrade your account.
+<br /></p>
+
+<ol>
+  <li>
+    <p>Go to Twilio.com or use my referral code: <a href="www.twilio.com/referral/oQb7iV">www.twilio.com/referral/oQb7iV</a></p>
+  </li>
+  <li>
+    <p>Sign up.</p>
+  </li>
+  <li>
+    <p>You will need to verify an email.</p>
+  </li>
+  <li>
+    <p>Next you will need to verify a phone #.</p>
+  </li>
+</ol>
+
+<p><strong>For the first trial you will receive $15.50 to use for testing as of 6/19/2020.</strong></p>
+
+<p>You can see this on your Twilio dashboard:</p>
+
+<p><img src="../assets/twilio/Dashboard.PNG" alt="Dashboard" /></p>
+
+<p><strong>Important:</strong> You need to click on “Get a Trial Number” and use that as your “from” # in your scripts</p>
+
+<p>Now that you have an account and some credit let’s build a quick script that sends a text.</p>
+
+<p><strong>Linux Bash</strong>:</p>
+
+<p>In Linux, we can use a quick curl request to send a message.</p>
+
+<p>Create a file:</p>
+
+<p><code class="highlighter-rouge">nano sendsms.sh</code></p>
+
+<p>use the following template:
+Replace the Auth Token, the From and To phone numbers.
+<br /></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nv">message</span><span class="o">=</span><span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+curl <span class="nt">-X</span> POST https://api.twilio.com/2010-04-01/Accounts/ACcd390961d2822915c128dd88a192597c/Messages.json <span class="se">\</span>
+<span class="nt">--data-urlencode</span> <span class="s2">"Body=</span><span class="nv">$message</span><span class="s2">"</span> <span class="se">\</span>
+<span class="nt">--data-urlencode</span> <span class="s2">"From=+10000000000"</span> <span class="se">\</span>
+<span class="nt">--data-urlencode</span> <span class="s2">"To=+17777777777"</span> <span class="se">\</span>
+<span class="nt">-u</span> ACcd390961d2822915c128dd88a192597c:EnterYourAuthTokenHere
+</code></pre></div></div>
+
+<p>Now make your script executable:</p>
+
+<p><code class="highlighter-rouge">chmod +x sendsms.sh</code></p>
+
+<p>Now you can call your script from anywhere by using the following syntax:</p>
+
+<p><code class="highlighter-rouge">./sendsms.sh your message here</code></p>
+
+<p>For example notify yourself an nmap scan is done:</p>
+
+<p><code class="highlighter-rouge">nmap -sT -p80 192.168.1.0/24 | ./sendsms.sh $(grep --line-buffered 'Nmap done')</code></p>
+
+<p><strong>Windows Powershell:</strong></p>
+
+<p>I’m modifying this template a little bit: <b><a href="https://www.twilio.com/docs/usage/tutorials/how-to-make-http-basic-request-twilio-powershell">https://www.twilio.com/docs/usage/tutorials/how-to-make-http-basic-request-twilio-powershell</a></b></p>
+
+<p>I want to be able to call the script with my message like this: <code class="highlighter-rouge">.\sendsms.ps1 HELLO WORLD</code>
+<br /></p>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ACcd390961d2822915c128dd88a192597c"</span><span class="err">    </span><span class="w"> </span><span class="c">#your sid goes here</span><span class="w">
+</span><span class="nv">$token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"00000000000000000000000000000000"</span><span class="err">    </span><span class="w"> </span><span class="c">#your token goes here</span><span class="w">
+</span><span class="nv">$number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"+19090000000"</span><span class="err">   </span><span class="w"> </span><span class="c"># your twilio number</span><span class="w">
+</span><span class="nv">$recipient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"+12140000000"</span><span class="w"> </span><span class="c"># your confirmed number</span><span class="w">
+</span><span class="nv">$message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">$args</span><span class="w"> </span><span class="o">-join</span><span class="w"> </span><span class="s2">" "</span><span class="w">
+</span><span class="c"># Twilio API endpoint and POST params</span><span class="w">
+</span><span class="nv">$url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"https://api.twilio.com/2010-04-01/Accounts/</span><span class="nv">$sid</span><span class="s2">/Messages.json"</span><span class="w">
+</span><span class="nv">$params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w"> </span><span class="nx">To</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$recipient</span><span class="err">;</span><span class="w"> </span><span class="nx">From</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$number</span><span class="err">;</span><span class="w"> </span><span class="nx">Body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$message</span><span class="w"> </span><span class="p">}</span><span class="w">
+
+</span><span class="c"># Create a credential object for HTTP basic auth</span><span class="w">
+</span><span class="nv">$p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$token</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">ConvertTo-SecureString</span><span class="w"> </span><span class="nt">-asPlainText</span><span class="w"> </span><span class="nt">-Force</span><span class="w">
+</span><span class="nv">$credential</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">New-Object</span><span class="w"> </span><span class="nx">System.Management.Automation.PSCredential</span><span class="p">(</span><span class="nv">$sid</span><span class="p">,</span><span class="w"> </span><span class="nv">$p</span><span class="p">)</span><span class="w">
+
+</span><span class="c"># Make API request, selecting JSON properties from response</span><span class="w">
+</span><span class="nf">Invoke-WebRequest</span><span class="w"> </span><span class="nv">$url</span><span class="w"> </span><span class="nt">-Method</span><span class="w"> </span><span class="nx">Post</span><span class="w"> </span><span class="nt">-Credential</span><span class="w"> </span><span class="nv">$credential</span><span class="w"> </span><span class="nt">-Body</span><span class="w"> </span><span class="nv">$params</span><span class="w"> </span><span class="nt">-UseBasicParsing</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span><span class="nf">ConvertFrom-Json</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Select</span><span class="w"> </span><span class="nx">sid</span><span class="p">,</span><span class="w"> </span><span class="nx">body</span><span class="w">
+</span></code></pre></div></div>
+<p><br />
+Save your script as sendsms.ps1</p>
+
+<p>You can call it from a scheduled task etc. as follows:</p>
+
+<p><code class="highlighter-rouge">powershell.exe -ep Bypass .\sendsms.ps1 HELLO WORLD</code></p>
+
+<p>For Twilio’s official tutorial and other templates for python, ruby, etc. go here: <a href="https://www.twilio.com/docs/sms/send-messages">https://www.twilio.com/docs/sms/send-messages</a></p>
+
+<p><br />
+<br /></p>
+:ET
