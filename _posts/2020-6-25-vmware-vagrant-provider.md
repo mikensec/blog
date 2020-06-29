@@ -1,12 +1,14 @@
 ---
 layout: post
-title: How to setup the VMware provider with vagrant with a paid license.
+title: How to setup the Vagrant VMware provider with a paid license to work on VMware Workstaion Pro 15.5 on CentOS 8.
 featured-img: vagrantmvware
-categories: Guides Metasploitable3 Vagrant VMware provider Windows Linux 
+categories: Guides Metasploitable3 Vagrant VMware provider CentOS 8  
 mathjax: true
 ---
 
-Thanks to Aaron McKay for encouraging me to write this post and providing the Vagrant VMware provider license. 
+How to setup the Vagrant VMware provider with a paid license to work on VMware Workstation Pro 15.5 running on CentOS 8. 
+
+Thanks to **Aaron McKay** for encouraging me to write this post and providing the Vagrant VMware provider license. 
 
 **On this post I will show you how to:** 
 
@@ -17,14 +19,7 @@ Thanks to Aaron McKay for encouraging me to write this post and providing the Va
 5. Install the Vagrant VMware Provider License.
 6. Provision a machine (Metasploitable 3 Win 2k8 and Linux versions).
 
-**Select your OS:**     
-
-:computer:  [Windows 10](#windows) :high_brightness:   [CentOS 8 - RHEL](#centos)    :penguin:   [Debian](#debian)  
-
-
-# CENTOS
-
-How to install VMware Workstation Pro 15.5 on CentOS 8 / RHEL!
+First let's begin with how to install VMware Workstation Pro 15.5 on CentOS 8 / RHEL. Skip ahead if you already have it installed. 
 
 **Install VMware Workstation Pro.** 
 
@@ -90,11 +85,6 @@ How to install VMware Workstation Pro 15.5 on CentOS 8 / RHEL!
 
 ![Vagrant encountered and unexpected communications error - fix](../assets/vagrant/vagranterror.PNG)
 
-Again the command is: 
-
-`sudo /opt/vagrant-vmware-desktop/bin/vagrant-vmware-utility service install` 
-
-
 
 **Provisioning a virtual machine**
 
@@ -109,18 +99,47 @@ The vagrant file provided is meant to work with Virtualbox. If you are using Vir
 If you want the Metasploitable Win 2k8 machine, download the following Vagrantfile: 
 <a href="https://github.com/mikensec/mikensec.github.io/tree/master/assets/vagrant/windows/Vagrantfile" target="_blank">https://github.com/mikensec/mikensec.github.io/tree/master/assets/vagrant/windows/Vagrantfile</a>
 
+
 For the Metaploitable 3 Linux image <a href="https://github.com/mikensec/mikensec.github.io/tree/master/assets/vagrant/linux/Vagrantfile" target="_blank">https://github.com/mikensec/mikensec.github.io/tree/master/assets/vagrant/linux/Vagrantfile</a>
 
 3. You can also run the following commands in your terminal: 
 
+For the Win 2k8 Vagrantfile: 
 
+```bash
+mkdir metasploitable3-windows-workspace
+cd metasploitable3-windows-workspace
+curl -O https://raw.githubusercontent.com/mikensec/mikensec.github.io/master/assets/vagrant/windows/Vagrantfile
+```
 
+For the Linux Vagrantfile: 
 
+```bash
+mkdir metasploitable3-linux-workspace
+cd metasploitable3-linux-workspace
+curl -O https://raw.githubusercontent.com/mikensec/mikensec.github.io/master/assets/vagrant/linux/Vagrantfile
+```
+4. Then go into the workspace you want to use for example:   
 
+```bash
+cd metasploitable3-windows-workspace
+vagrant up --provider=vmware_desktop
+```
 
+5. Once your image is provisioned, VMware Workstation will open up. 
 
-# DEBIAN
-# WINDOWS
-Windows 10
-    lorem ipsum
+![metasploitable 3 wmware workstation Pro](../assets/vagrant/success.PNG)
+
+![Win 2k8 metasploitable 3 - Workstation Pro](../assets/vagrant/successwindows.PNG)
+
+If you receive an error message about Vagrant encountered and unexpected communications error...
+
+![Vagrant encountered and unexpected communications error - fix](../assets/vagrant/vagranterror.PNG)
+
+Try this command: 
+
+`sudo /opt/vagrant-vmware-desktop/bin/vagrant-vmware-utility service install`
+
+Other possible error messages can come up if you don't have enough disk space or ram to run the virtual machines. You can try editing the Vagrantfile with more custom settings.
+
 
