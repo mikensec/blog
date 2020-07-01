@@ -32,7 +32,7 @@ First let's begin with how to install VMware Workstation Pro 15.5 on CentOS 8 / 
 
 ![vmware install](../assets/vagrant/vmprocnetosinstall.PNG)
 
-6. Open VMware workstation from the application menu or type `vmware` in your terminal.
+Open VMware workstation from the application menu or type `vmware` in your terminal.
 
 **Common Issue:** `Before you can run VMware, several modules must be compiled and loaded into the running kernel.` fails when you click Install. 
 
@@ -77,7 +77,7 @@ First let's begin with how to install VMware Workstation Pro 15.5 on CentOS 8 / 
 
 ![vagrant plugin install](../assets/vagrant/vagrantvlicense.PNG)
  
- 4. Lastly run this command to make sure the service is installed:
+Lastly run this command to make sure the service is installed:
  
 `sudo /opt/vagrant-vmware-desktop/bin/vagrant-vmware-utility service install`  
 
@@ -102,7 +102,7 @@ If you want the Metasploitable Win 2k8 machine, download the following Vagrantfi
 
 For the Metaploitable 3 Linux image <a href="https://github.com/mikensec/mikensec.github.io/tree/master/assets/vagrant/linux/Vagrantfile" target="_blank">https://github.com/mikensec/mikensec.github.io/tree/master/assets/vagrant/linux/Vagrantfile</a>
 
-3. You can also run the following commands in your terminal: 
+You can also run the following commands in your terminal: 
 
 For the Win 2k8 Vagrantfile: 
 
@@ -119,14 +119,14 @@ mkdir metasploitable3-linux-workspace
 cd metasploitable3-linux-workspace
 curl -O https://raw.githubusercontent.com/mikensec/mikensec.github.io/master/assets/vagrant/linux/Vagrantfile
 ```
-4. Then go into the workspace you want to use for example:   
+Then go into the workspace you want to use for example:   
 
 ```bash
 cd metasploitable3-windows-workspace
 vagrant up --provider=vmware_desktop
 ```
 
-5. Once your image is provisioned, VMware Workstation will open up. 
+Once your image is provisioned, VMware Workstation will open up. 
 
 ![metasploitable 3 wmware workstation Pro](../assets/vagrant/success.PNG)
 
