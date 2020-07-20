@@ -1,0 +1,86 @@
+I"e<p>Metasploitable3 is a virtual machine that is built from the ground up with a large amount of security vulnerabilities. For detailed information, <a href="https://github.com/rapid7/metasploitable3">click here to view its repository.</a></p>
+
+<p>Configuring the virtual machine is a little tricky so I’ve documented the fastest way I was able to get it running on VirtualBox and VMware Workstation for free.</p>
+
+<h1 id="prereqs">Prereqs</h1>
+
+<p><strong>Download and install Vagrant:</strong></p>
+
+<p><a href="https://www.vagrantup.com/downloads.html">https://www.vagrantup.com/downloads.html</a> - Vagrant is an open-source software product for building and maintaining portable virtual software development environments.. <a href="https://en.wikipedia.org/wiki/Vagrant_(software)">More Info…</a></p>
+
+<p><strong>Download and install VirtualBox:</strong></p>
+
+<p><a href="https://www.virtualbox.org/" target="_blank">https://www.virtualbox.org/</a> - VirtualBox is an open-source hypervisor from Oracle that can be used to host virtual machines. Vagrant uses it to create the virtual machine and run all the necessary scripts.</p>
+
+<p><strong>Download the Vagrantfile</strong></p>
+
+<ol>
+  <li>Create an empty folder. You can name it <code class="highlighter-rouge">metasploitable3</code>.</li>
+  <li><a href="https://raw.githubusercontent.com/rapid7/metasploitable3/master/Vagrantfile">Right-click this link and choose “Save Link As” to save the “Vagrantfile”</a>.</li>
+  <li>Save the Vagrantfile to the folder you created <code class="highlighter-rouge">metasploitable3</code>
+<img src="..\assets\metasploitable3\vagrantfilescreen.png" alt="Vagrantfile" /></li>
+  <li>Make sure the file’s name is Vagrantfile without .txt</li>
+  <li>Open the file and confirm it has the configuration data. You can edit the file but at this point it’s not necessary.</li>
+</ol>
+
+<p>The file should begin like this:</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># -*- mode: ruby -*-</span>
+<span class="c1"># vi: set ft=ruby :</span>
+
+<span class="no">Vagrant</span><span class="p">.</span><span class="nf">configure</span><span class="p">(</span><span class="s2">"2"</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">synced_folder</span> <span class="s1">'.'</span><span class="p">,</span> <span class="s1">'/vagrant'</span><span class="p">,</span> <span class="ss">disabled: </span><span class="kp">true</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">define</span> <span class="s2">"ub1404"</span> <span class="k">do</span> <span class="o">|</span><span class="n">ub1404</span><span class="o">|</span>
+    <span class="n">ub1404</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">box</span> <span class="o">=</span> <span class="s2">"rapid7/metasploitable3-ub1404"</span>
+    <span class="n">ub1404</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">hostname</span> <span class="o">=</span> <span class="s2">"metasploitable3-ub1404"</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">ssh</span><span class="p">.</span><span class="nf">username</span> <span class="o">=</span> <span class="s1">'vagrant'</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">ssh</span><span class="p">.</span><span class="nf">password</span> <span class="o">=</span> <span class="s1">'vagrant'</span>
+</code></pre></div></div>
+<ol>
+  <li>While in the same folder, hold down the shift key and right click on the empty space below your file and select <code class="highlighter-rouge">Open PowerShell window here</code>. Alternatively you can just open Powershell and change directories until you are in <code class="highlighter-rouge">metasploitable3</code> folder.</li>
+  <li>Type the following command: <code class="highlighter-rouge">vagrant up</code></li>
+  <li>Vagrant will download and configure the Linux and Windows images.</li>
+</ol>
+
+<p>Powershell should look like this:
+<img src="../assets/metasploitable3/psscreenVagrant.PNG" alt="Powershell Image here." /></p>
+
+<ol>
+  <li>Open VirtualBox and your virtual machines should be running.
+Both machines use the following creds.
+Username: vagrant
+Password: vagrant</li>
+</ol>
+
+<p><img src="../assets/metasploitable3/vmsrunning.PNG" alt="vms running" /></p>
+
+<p>At this point you can use your virtual machines but I prefer to use VMWare Workstation Pro.</p>
+
+<h1 id="how-to-transfer-your-virtual-machines-to-vmware-workstation-pro">How to transfer your virtual machines to VMWare Workstation Pro</h1>
+
+<p><strong>Export from VirtualBox</strong></p>
+
+<ol>
+  <li>Turn off your virtual machines running in Virtual Box.</li>
+  <li>Click on File -&gt; Export Appliance.
+<img src="../assets/metasploitable3/ExportAppliance.PNG" alt="" /></li>
+  <li>Select the vm you want to export first.
+<img src="../assets/metasploitable3/VirtualBoxScreen2.png" alt="" /></li>
+  <li>Select the folder where you’d like to save the vm and select Next.
+<img src="../assets/metasploitable3/VirtualBoxScreen3.png" alt="" /></li>
+  <li>When finished, you should have an .ova file.</li>
+</ol>
+
+<p><strong>Import into VMWare Workstation Pro</strong></p>
+
+<ol>
+  <li>Locate your exported .ova file and right click on it and select “Open with VMWare Workstation”.</li>
+  <li>Select a location where you want to save your vm and click import.
+<img src="../assets/metasploitable3/vmwareimport.PNG" alt="" /></li>
+  <li>If you get an error message, select <code class="highlighter-rouge">Retry</code>
+<img src="../assets/metasploitable3/ovfspecs.PNG" alt="" /></li>
+  <li>The import process takes some time. Approximately 5 to 10 minutes on a new computer.
+<img src="../assets/metasploitable3/importprocess.png" alt="" /></li>
+  <li>Hack the planet!
+<img src="../assets/metasploitable3/completed.png" alt="" /></li>
+</ol>
+:ET
