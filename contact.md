@@ -4,7 +4,7 @@ title: Contact
 permalink: /contact/
 ---
 
-You can reach me on Twitter or HackTheBox.eu [@mikensec](https://twitter.com/mikensec) 
+You can reach me on Twitter [@mikensec](https://twitter.com/mikensec) 
 
 ### Send a message
 

@@ -1,0 +1,120 @@
+C:\Users\administrator>dcdiag
+
+Directory Server Diagnosis
+
+Performing initial setup:
+   Trying to find home server...
+   Home Server = DC2
+   * Identified AD Forest.
+   Done gathering initial info.
+
+Doing initial required tests
+
+   Testing server: Default-First-Site-Name\DC2
+      Starting test: Connectivity
+         ......................... DC2 passed test Connectivity
+
+Doing primary tests
+
+   Testing server: Default-First-Site-Name\DC2
+      Starting test: Advertising
+         ......................... DC2 passed test Advertising
+      Starting test: FrsEvent
+         ......................... DC2 passed test FrsEvent
+      Starting test: DFSREvent
+         There are warning or error events within the last 24 hours after the SYSVOL has been shared.  Failing SYSVOL replication problems may cause Group Policy problems.
+         ......................... DC2 failed test DFSREvent
+      Starting test: SysVolCheck
+         ......................... DC2 passed test SysVolCheck
+      Starting test: KccEvent
+         ......................... DC2 passed test KccEvent
+      Starting test: KnowsOfRoleHolders
+         [DC1] DsBindWithSpnEx() failed with error -2146893022,
+         The target principal name is incorrect..
+         Warning: DC1 is the Schema Owner, but is not responding to DS RPC Bind.
+         [DC1] LDAP bind failed with error 8341,
+         A directory service error has occurred..
+         Warning: DC1 is the Schema Owner, but is not responding to LDAP Bind.
+         Warning: DC1 is the Domain Owner, but is not responding to DS RPC Bind.
+         Warning: DC1 is the Domain Owner, but is not responding to LDAP Bind.
+         Warning: DC1 is the PDC Owner, but is not responding to DS RPC Bind.
+         Warning: DC1 is the PDC Owner, but is not responding to LDAP Bind.
+         Warning: DC1 is the Rid Owner, but is not responding to DS RPC Bind.
+         Warning: DC1 is the Rid Owner, but is not responding to LDAP Bind.
+         Warning: DC1 is the Infrastructure Update Owner, but is not responding to DS RPC Bind.
+         Warning: DC1 is the Infrastructure Update Owner, but is not responding to LDAP Bind.
+         ......................... DC2 failed test KnowsOfRoleHolders
+      Starting test: MachineAccount
+         ......................... DC2 passed test MachineAccount
+      Starting test: NCSecDesc
+         ......................... DC2 passed test NCSecDesc
+      Starting test: NetLogons
+         ......................... DC2 passed test NetLogons
+      Starting test: ObjectsReplicated
+         ......................... DC2 passed test ObjectsReplicated
+      Starting test: Replications
+         ......................... DC2 failed test Replications
+      Starting test: RidManager
+         ......................... DC2 failed test RidManager
+      Starting test: Services
+         ......................... DC2 passed test Services
+      Starting test: SystemLog
+         An error event occurred.  EventID: 0x40000004
+            Time Generated: 09/16/2020   11:06:44
+            Event String:
+            The Kerberos client received a KRB_AP_ERR_MODIFIED error from the server dc1$. The target name used was LDAP/babf6af0-ecbd-41c3-8fdb-c5599d139056._msdcs.testnet.local. This indicates that the target server failed to decrypt the ticket provided by the client. This can occur when the target server principal name (SPN) is registered on an account other than the account the target service is using. Ensure that the target SPN is only registered on the account used by the server. This error can also happen if the target service account password is different than what is configured on the Kerberos Key Distribution Center for that target service. Ensure that the service on the server and the KDC are both configured to use the same password. If the server name is not fully qualified, and the target domain (TESTNET.LOCAL) is different from the client domain (TESTNET.LOCAL), check if there are identically named server accounts in these two domains, or use the fully-qualified name to identify the server.
+         An error event occurred.  EventID: 0x40000004
+            Time Generated: 09/16/2020   11:06:44
+            Event String:
+            The Kerberos client received a KRB_AP_ERR_MODIFIED error from the server dc1$. The target name used was ldap/DC1.testnet.local. This indicates that the target server failed to decrypt the ticket provided by the client. This can occur when the target server principal name (SPN) is registered on an account other than the account the target service is using. Ensure that the target SPN is only registered on the account used by the server. This error can also happen if the target service account password is different than what is configured on the Kerberos Key Distribution Center for that target service. Ensure that the service on the server and the KDC are both configured to use the same password. If the server name is not fully qualified, and the target domain (TESTNET.LOCAL) is different from the client domain (TESTNET.LOCAL), check if there are identically named server accounts in these two domains, or use the fully-qualified name to identify the server.
+         An error event occurred.  EventID: 0x00002720
+            Time Generated: 09/16/2020   11:22:39
+            Event String: The application-specific permission settings do not grant Local Activation permission for the COM Server application with CLSID
+         An error event occurred.  EventID: 0x00002720
+            Time Generated: 09/16/2020   12:00:04
+            Event String: The application-specific permission settings do not grant Local Activation permission for the COM Server application with CLSID
+         ......................... DC2 failed test SystemLog
+      Starting test: VerifyReferences
+         ......................... DC2 passed test VerifyReferences
+
+
+   Running partition tests on : ForestDnsZones
+      Starting test: CheckSDRefDom
+         ......................... ForestDnsZones passed test CheckSDRefDom
+      Starting test: CrossRefValidation
+         ......................... ForestDnsZones passed test CrossRefValidation
+
+   Running partition tests on : DomainDnsZones
+      Starting test: CheckSDRefDom
+         ......................... DomainDnsZones passed test CheckSDRefDom
+      Starting test: CrossRefValidation
+         ......................... DomainDnsZones passed test CrossRefValidation
+
+   Running partition tests on : Schema
+      Starting test: CheckSDRefDom
+         ......................... Schema passed test CheckSDRefDom
+      Starting test: CrossRefValidation
+         ......................... Schema passed test CrossRefValidation
+
+   Running partition tests on : Configuration
+      Starting test: CheckSDRefDom
+         ......................... Configuration passed test CheckSDRefDom
+      Starting test: CrossRefValidation
+         ......................... Configuration passed test CrossRefValidation
+
+   Running partition tests on : testnet
+      Starting test: CheckSDRefDom
+         ......................... testnet passed test CheckSDRefDom
+      Starting test: CrossRefValidation
+         ......................... testnet passed test CrossRefValidation
+
+   Running enterprise tests on : testnet.local
+      Starting test: LocatorCheck
+         ......................... testnet.local passed test LocatorCheck
+      Starting test: Intersite
+         ......................... testnet.local passed test Intersite
+
+C:\Users\administrator>
+
+
+
