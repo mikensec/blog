@@ -1,0 +1,53 @@
+I"�<h2 id="how-to-fix-a-domain-controller-after-running-a-zerologon-poc-cve-2020-1472">How to fix a domain controller after running a Zerologon POC (CVE-2020-1472).</h2>
+<p><br />
+Running any POC’s designed for exploiting CVE-2020-1472 AKA Zerologon breaks the domain controller unless you run the impacket tool or find a python script to reset the DC’s computer password to its original one.</p>
+
+<p>But what if you patched or can’t run impacket, etc?</p>
+
+<p>To fix your DC and bring it back from the broken state, The DC’s computer account has to be reset in AD.</p>
+
+<p>Run this command <strong>twice</strong> directly from the broken DC:</p>
+
+<p><code class="highlighter-rouge">netdom resetpwd /server:localhost /userD:administrator /passwordd:*</code></p>
+
+<p>You will be prompted for the administrator password.</p>
+
+<p><strong>Because DNS is broken on this DC, using the actual name won’t work, so we use localhost.</strong></p>
+
+<p>We are using netdom as specified by Microsoft here <a href="https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/manage/ad-forest-recovery-reset-computer-account-dc" title="Reset DC's computer account in AD.">https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/manage/ad-forest-recovery-reset-computer-account-dc</a></p>
+
+<p><img src="../assets/zerologon/netdomexample.PNG" alt="netdomexample" /></p>
+
+<p>If you run <code class="highlighter-rouge">repadmin /replsum</code> you should get a clean result:</p>
+
+<p><img src="../assets/zerologon/repadminfixed.PNG" alt="repadmin" /></p>
+
+<p>Read more about Zerologon here:
+<a href="https://www.secura.com/blog/zero-logon" title="Zerologon">https://www.secura.com/blog/zero-logon</a></p>
+
+<p><strong>Things that broke after running a Zerologon POC exploit:</strong></p>
+
+<p>The first thing I noticed was the server stopped processing DNS requests.</p>
+
+<p><img src="../assets/zerologon/brokenDNS.PNG" alt="broken DNS" /></p>
+
+<p>Running <code class="highlighter-rouge">repadmin /replsum</code> showed Access is denied.:</p>
+
+<p><img src="../assets/zerologon/repadminbroken.PNG" alt="broken repl" /></p>
+
+<p>There were a few interesting events logged:</p>
+
+<p><strong>Event ID 2092:</strong> This server is the owner of the following FSMO role, but does not consider it valid. For the partition which contains the FSMO, this server has not replicated successfully with any of its partners since this server has been restarted. Replication errors are preventing validation of this role…</p>
+
+<p><img src="../assets/zerologon/event2092.PNG" alt="event2092" /></p>
+
+<p>Also <strong>Event ID 5805</strong> showed multiple times.</p>
+
+<p><img src="../assets/zerologon/events.PNG" alt="event5805" /></p>
+
+<p>The attack was detected by ATA but it also broke it because I was running the gateway on the same server. This is a lab environment.</p>
+
+<p><img src="../assets/zerologon/ATADetection.PNG" alt="ATAdetection" /></p>
+
+<p><img src="../assets/zerologon/brokenATA.PNG" alt="brokenATA" /></p>
+:ET

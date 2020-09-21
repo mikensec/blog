@@ -1,0 +1,4 @@
+I"�<h2 id="how-to-fix-a-domain-controller-after-running-a-zerologon-poc-cve-2020-1472">How to fix a domain controller after running a Zerologon POC (CVE-2020-1472).</h2>
+<p><br />
+Running any POC’s designed for exploiting CVE-2020-1472 AKA Zerologon breaks the domain controller unless you run the impacket tool or find a python script to reset the DC’s computer password to its original one.</p>
+:ET
